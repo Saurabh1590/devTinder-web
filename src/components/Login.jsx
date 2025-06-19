@@ -2,12 +2,13 @@ import { React, useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constant";
 
 const Login = () => {
   const [emailId, setEmailId] = useState("jisoo@gmail.com");
   const [password, setPassword] = useState("Jisoo@1234");
+  const [error, setError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -27,6 +28,7 @@ const Login = () => {
       dispatch(addUser(res.data));
       return navigate("/");
     } catch (err) {
+      setError(err?.request?.response || "something went wrong");
       console.log(err);
     }
   };
@@ -61,7 +63,7 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-
+          <p className="text-red-500">{error}</p>
           <div className="form-control mt-6 flex justify-center">
             <button className="btn btn-primary" onClick={handleLogin}>
               Login

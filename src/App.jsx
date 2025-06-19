@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router";
+import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Body from "./components/Body";
 import Login from "./components/Login";
@@ -8,6 +8,7 @@ import appStore from "./utils/appStore";
 import Feed from "./components/Feed";
 
 function App() {
+
   return (
     <>
       <Provider store={appStore}>
