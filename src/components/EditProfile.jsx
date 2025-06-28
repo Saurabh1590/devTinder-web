@@ -44,7 +44,7 @@ const EditProfile = ({ user }) => {
 
   return (
     <div>
-      <div className="fixed top-[56px] bottom-[56px] left-0 right-0 bg-base-200 px-6 py-4 overflow-hidden">
+      <div className="fixed top-[56px] bottom-[56px] left-0 right-0 bg-base-200 px-6 py-4 overflow-hidden z-10">
         <div className="h-full flex gap-4 max-w-7xl mx-auto">
           {/* UserCard */}
           <div className="w-[300px]">
