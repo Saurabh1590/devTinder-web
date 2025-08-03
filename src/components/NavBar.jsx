@@ -14,17 +14,17 @@ const NavBar = () => {
   try {
     await axios.post(BASE_URL + "/logout", {}, { withCredentials: true });
     dispatch(removeUser());
-    return navigate("/login");
+    return navigate("/");
   } catch (err) {
     console.error("Logout error:", err);
   }
 };
 
   return (
-    <div className="navbar bg-base-300 shadow-sm fixed top-0 z-50">
+    <div className="navbar bg-base-300/80 backdrop-blur-sm shadow-sm fixed top-0 z-50 border-b border-white/10">
       <div className="flex-1">
-        <Link to="/" className="btn btn-ghost text-xl">
-          🧑‍💻 Dev-Tinder
+        <Link to={user ? "/" : "/login"} className="btn btn-ghost text-xl">
+          🧑‍💻 DevTinder
         </Link>
       </div>
       {user && (

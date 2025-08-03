@@ -4,15 +4,14 @@ import axios from "axios";
 import { BASE_URL } from "../utils/constant";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
-import * as Toast from "@radix-ui/react-toast";
 
 const EditProfile = ({ user }) => {
   const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
-  const [age, setAge] = useState(user.age);
-  const [gender, setGender] = useState(user.gender);
+  const [age, setAge] = useState(user.age || "");
+  const [gender, setGender] = useState(user.gender || "");
   const [photoUrl, setPhotoUrl] = useState(user.photoUrl);
-  const [about, setAbout] = useState(user.about);
+  const [about, setAbout] = useState(user.about || "");
   const [error, setError] = useState();
   const [openToast, setOpenToast] = useState(false);
 
@@ -44,10 +43,10 @@ const EditProfile = ({ user }) => {
 
   return (
     <div>
-      <div className="fixed top-[56px] bottom-[56px] left-0 right-0 bg-base-200 px-6 py-4 overflow-hidden z-10">
+      <div className="fixed top-[56px] bottom-[56px] left-0 right-0 bg-base-200 px-6 py-4 overflow-y-auto z-10">
         <div className="h-full flex gap-4 max-w-7xl mx-auto">
           {/* UserCard */}
-          <div className="w-[300px]">
+          <div className="w-[300px] mt-20 mr-8">
             <UserCard
               user={{
                 firstName,
@@ -149,8 +148,8 @@ const EditProfile = ({ user }) => {
         </div>
       </div>
       {openToast && (
-        <div className="toast toast-top toast-center">
-          <div className="alert alert-info">
+        <div className="toast toast-top toast-center z-50">
+          <div className="alert alert-success">
             <span>Your Profile has been saved successfully.</span>
           </div>
         </div>

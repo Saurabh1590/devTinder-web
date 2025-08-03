@@ -6,7 +6,7 @@ import axios from "axios";
 import UserCard from "./UserCard";
 
 const Feed = () => {
-  const feed = useSelector((store) => store.feed);
+  const feed = useSelector((store) => store?.feed);
   console.log(feed);
   const dispatch = useDispatch();
 
@@ -25,6 +25,9 @@ const Feed = () => {
   useEffect(() => {
     getFeed();
   }, []);
+  if(!feed) return;
+
+  if(feed.length <= 0) return <h1>No new User Found!</h1>
   return (
     feed && (
       <div className="flex justify-center my-10">
