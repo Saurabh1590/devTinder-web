@@ -1,8 +1,9 @@
 // src/components/Body.jsx - CORRECTED
 
-import React, { useEffect } from "react";
+// src/components/Body.jsx - FINAL CORRECTED VERSION
+import React, { useEffect, useState } from "react";
 import NavBar from "./NavBar";
-import { Outlet, useNavigate, useLocation } from "react-router-dom"; // 1. Import useLocation
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Footer from "./Footer";
 import axios from "axios";
 import { BASE_URL } from "../utils/constant";
@@ -12,42 +13,60 @@ import { addUser } from "../utils/userSlice";
 const Body = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const location = useLocation(); // 2. Get the current location
+  const location = useLocation();
   const userData = useSelector((store) => store.user);
 
-  const fetchUser = async () => {
-    if (userData) return;
-
-    try {
-      const res = await axios.get(BASE_URL + "/profile/view", {
-        withCredentials: true,
-      });
-      dispatch(addUser(res.data));
-    } catch (err) {
-      // 4. IMPORTANT: Correctly check for the 401 status code
-      // Axios error status is on err.response.status
-      if (err?.response?.status === 401) {
-        // Only navigate to login if the user was trying to access a protected page
-        navigate("/login");
-      }
-      console.error(err);
-    }
-  };
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // 3. Define public routes where we should NOT try to fetch a user
-    const publicRoutes = ["/login", "/"];
-    
-    // Only fetch user data if the current page is NOT a public route
-    if (!publicRoutes.includes(location.pathname)) {
-      fetchUser();
+    if (userData) {
+      setIsLoading(false);
+      return;
     }
-  }, [location.pathname]); // Run this effect when the path changes
 
+    // Define which routes are public and don't require a login check to view.
+    const publicRoutes = ['/', '/login'];
+    const isPublicRoute = publicRoutes.includes(location.pathname);
+
+    const checkUserSession = async () => {
+      try {
+        const res = await axios.get(`${BASE_URL}/profile/view`, {
+          withCredentials: true,
+        });
+        dispatch(addUser(res.data));
+      } catch (error) {
+        console.log("No active session found.");
+        // THIS IS THE CRITICAL FIX:
+        // If the session check fails AND the user is trying to access a protected page,
+        // redirect them to the login page.
+        if (!isPublicRoute && error?.response?.status === 401) {
+          navigate("/login");
+        }
+      } finally {
+        // No matter the outcome, the check is complete.
+        setIsLoading(false);
+      }
+    };
+
+    checkUserSession();
+  }, [location.pathname]); // Rerun this logic if the user navigates before the initial check is done.
+
+  // While the initial check is running, show a full-screen loader.
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex justify-center items-center bg-base-100">
+        <span className="loading loading-spinner loading-lg text-primary"></span>
+      </div>
+    );
+  }
+
+  // Once the check is done, render the app.
   return (
-    <div className="min-h-screen pt-20 flex flex-col">
+    <div className="min-h-screen flex flex-col">
       <NavBar />
-      <Outlet />
+      <main className="flex-grow pt-16">
+        <Outlet />
+      </main>
       <Footer />
     </div>
   );
