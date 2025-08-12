@@ -1,6 +1,6 @@
 # DevTinder - Frontend 🎨
 
-![DevTinder Animated Logo](public/favicon.svg) 
+![DevTinder Animated Logo](public/icon.svg) 
 
 This is the frontend for the **DevTinder** application, a modern and responsive user interface built with React and Vite. It provides a seamless and engaging experience for developers to connect, with a focus on a clean, intuitive, and highly dynamic user experience.
 
