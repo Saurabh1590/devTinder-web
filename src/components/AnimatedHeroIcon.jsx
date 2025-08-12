@@ -23,9 +23,8 @@ const AnimatedHeroIcon = () => {
       animate="visible"
       className="mx-auto"
     >
-      {/* Left Bracket */}
       <motion.path
-        d="M 75,50 L 50,100 L 75,150"
+        d="M 70,40 L 40,100 L 70,160"
         stroke="currentColor"
         className="text-primary"
         strokeWidth="10"
@@ -33,9 +32,8 @@ const AnimatedHeroIcon = () => {
         fill="none"
         variants={draw}
       />
-      {/* Right Bracket */}
       <motion.path
-        d="M 125,50 L 150,100 L 125,150"
+        d="M 130,40 L 160,100 L 130,160"
         stroke="currentColor"
         className="text-primary"
         strokeWidth="10"
@@ -43,27 +41,34 @@ const AnimatedHeroIcon = () => {
         fill="none"
         variants={draw}
       />
-      {/* Heart - UPDATED with a much better shape */}
       <motion.path
-        d="M100 130 C 80 115, 70 100, 80 85 A 15 15 0 0 1 100 80 A 15 15 0 0 1 120 85 C 130 100, 120 115, 100 130 Z"
+        d="M100 125
+           C 118 110, 145 95, 120 70
+           C 110 60, 100 70, 100 80
+           C 100 70, 90 60, 80 70
+           C 55 95, 82 110, 100 125
+           Z"
         fill="currentColor"
         className="text-secondary"
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
+        whileHover={{ scale: 1.13 }}
+        whileTap={{ scale: 0.97 }}
         transition={{ delay: 1, duration: 0.5 }}
         style={{
-          // Pulsating animation
           animation: 'pulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1)',
+          transformOrigin: 'center',
         }}
       />
       <style>{`
         @keyframes pulse {
-          0%, 100% { transform: scale(1); transform-origin: center; }
-          50% { transform: scale(1.1); transform-origin: center; }
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.13); }
         }
       `}</style>
     </motion.svg>
   );
 };
+
 
 export default AnimatedHeroIcon;
