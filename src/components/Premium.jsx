@@ -1,8 +1,12 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect } from "react";
 import { BASE_URL } from "../utils/constant";
 
 const Premium = () => {
+  const [isUserPremium, setIsUserPremium] = React.useState(false);
+  useEffect(() => {
+    verifyPremiumUser();
+  }, []);
   const silverFeatures = [
     "Chat with other people",
     "100 connection requests per day",
@@ -17,6 +21,14 @@ const Premium = () => {
     "6 months duration",
     "Priority support",
   ];
+  const verifyPremiumUser = async () => {
+    const res = await axios.get(BASE_URL + "/premium/verify", {
+      withCredentials: true,
+    });
+    if (res.data.isPremium) {
+      setIsUserPremium(true);
+    }
+  };
 
   const handleBuyClick = async (plan) => {
     const order = await axios.post(
@@ -48,13 +60,16 @@ const Premium = () => {
       theme: {
         color: "#528FF0",
       },
+      handler: verifyPremiumUser,
     };
 
     const rzp1 = new window.Razorpay(options);
     rzp1.open();
   };
 
-  return (
+  return isUserPremium ? (
+    "You're already a premium user. Enjoy your benefits!"
+  ) : (
     <div className="min-h-screen bg-gray-900 text-gray-100 p-8 flex flex-col items-center justify-center">
       <h2 className="text-4xl font-bold mb-12 text-center text-blue-400">
         Choose Your DevTinder Membership
