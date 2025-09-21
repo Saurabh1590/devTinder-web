@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { BASE_URL } from "../utils/constant";
 
 const Premium = () => {
@@ -73,7 +73,7 @@ const Premium = () => {
   };
 
   return isUserPremium ? (
-    <div className="min-h-screen bg-gray-900 text-gray-100 p-8 flex flex-col items-center justify-center">
+    <div className="pb-20 bg-gray-900 text-gray-100  flex flex-col items-center justify-center">
       <div className="max-w-2xl w-full bg-gray-800 rounded-xl shadow-2xl p-8 border-2 border-blue-600 text-center">
         <div className="mb-6">
           <span className="text-5xl">🎉</span>

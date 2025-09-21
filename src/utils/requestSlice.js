@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { removeUser } from "./userSlice";
 
 const requestSlice = createSlice({
   name: "requests",
@@ -9,6 +10,11 @@ const requestSlice = createSlice({
       const newArray = state.filter((r) => r._id != action.payload);
       return newArray;
     }
+  },
+  extraReducers: (builder) => {
+    builder.addCase(removeUser, (_state, _action) => {
+      return null;
+    });
   },
 });
 
