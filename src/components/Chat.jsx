@@ -32,7 +32,7 @@ const Chat = () => {
         });
 
         const chatMessages = chat?.data?.messages.map((msg) => {
-            const { senderId, text, createdAt } = msg; // Assuming you have a createdAt field
+            const { senderId, text, createdAt } = msg;
             return {
                 senderId: senderId._id,
                 firstName: senderId.firstName,
@@ -84,7 +84,7 @@ const Chat = () => {
   }, [userId, targetUserId, user.firstName]);
 
   const handleSendMessage = (e) => {
-    e.preventDefault(); // Prevent form submission from reloading the page
+    e.preventDefault(); 
     if (newMessage.trim() === "") return; // Don't send empty messages
 
     const socket = createSocketConnection();
@@ -156,5 +156,3 @@ const Chat = () => {
 };
 
 export default Chat;
-
-//w-3/4 mx-auto border border-gray-600 m-5 h-[70vh] flex flex-col
