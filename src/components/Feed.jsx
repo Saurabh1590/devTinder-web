@@ -7,7 +7,6 @@ import UserCard from "./UserCard";
 
 const Feed = () => {
   const feed = useSelector((store) => store?.feed);
-  console.log(feed);
   const dispatch = useDispatch();
 
   const getFeed = async () => {
@@ -18,7 +17,7 @@ const Feed = () => {
       });
       dispatch(addFeed(res?.data));
     } catch (err) {
-      // Todo
+      console.log("error: " + err)
     }
   };
 
