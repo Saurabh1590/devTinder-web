@@ -39,7 +39,7 @@ const XIcon = () => (
 );
 
 const UserCard = ({ user }) => {
-  const { _id, firstName, lastName, photoUrl, age, gender, about, skills } =
+  const { _id, firstName, lastName, photoUrl, age, about, skills } =
     user;
   const dispatch = useDispatch();
 
@@ -52,7 +52,7 @@ const UserCard = ({ user }) => {
       );
       dispatch(removeUserFromFeed(userId));
     } catch (err) {
-      // Handle error gracefully
+      console.error("Error sending request:", err);
     }
   };
 
